@@ -1,7 +1,2 @@
-<<<<<<< HEAD
 djangorestframework-simplejwt
 psycopg2-binary
-=======
-djangorestframework-simplejwt
-psycopg2-binary
->>>>>>> 20e0926551221751cc059e267c30b6d48d0a99d7

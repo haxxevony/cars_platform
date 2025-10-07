@@ -1,0 +1,56 @@
+<!-- templates/cars/search_filters.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Global Search Filters</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 900px; margin: auto; }
+        form { display: flex; flex-wrap: wrap; gap: 15px; }
+        input, select, button { padding: 10px; font-size: 1rem; flex: 1 1 200px; }
+        label { font-weight: bold; width: 100%; }
+        .result { margin-top: 20px; padding: 15px; border: 1px solid #ccc; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>Global Search Filters</h1>
+    <form method="get">
+        <label for="keyword">Keyword</label>
+        <input type="text" name="keyword" id="keyword" placeholder="e.g. hybrid, diagnostics, Tesla">
+
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            <option value="">All</option>
+            <option value="cars">Car Listings</option>
+            <option value="blog">Guest Blogs</option>
+            <option value="diagnostics">Diagnostics</option>
+            <option value="parts">EV Parts</option>
+        </select>
+
+        <label for="region">Region</label>
+        <select name="region" id="region">
+            <option value="">All</option>
+            <option value="UK">UK</option>
+            <option value="EU">EU</option>
+            <option value="US">US</option>
+            <option value="Asia">Asia</option>
+        </select>
+
+        <button type="submit">Apply Filters</button>
+    </form>
+
+    {% if results %}
+        <h2>Filtered Results</h2>
+        {% for item in results %}
+            <div class="result">
+                <strong>{{ item.title }}</strong><br>
+                Category: {{ item.category }}<br>
+                Region: {{ item.region }}<br>
+                Summary: {{ item.summary }}
+            </div>
+        {% empty %}
+            <p>No results found.</p>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

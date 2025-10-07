@@ -1,0 +1,42 @@
+<!-- templates/cars/electrical_diagrams.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Electrical Diagrams Viewer</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 900px; margin: auto; }
+        form { display: flex; flex-direction: column; gap: 10px; }
+        input, select, button { padding: 10px; font-size: 1rem; }
+        label { font-weight: bold; }
+        .diagram { border: 1px solid #ccc; padding: 10px; margin-top: 15px; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>Search Electrical Diagrams</h1>
+    <form method="get">
+        <label for="system">System</label>
+        <select name="system" id="system" required>
+            <option value="lighting">Lighting</option>
+            <option value="ignition">Ignition</option>
+            <option value="infotainment">Infotainment</option>
+            <option value="charging">Charging</option>
+            <option value="ecu">ECU & Sensors</option>
+        </select>
+
+        <label for="vehicle">Vehicle Model</label>
+        <input type="text" name="vehicle" id="vehicle" placeholder="e.g. BMW i3, Leaf ZE1" required>
+
+        <button type="submit">View Diagram</button>
+    </form>
+
+    {% if diagram %}
+        <div class="diagram">
+            <h2>{{ diagram.title }}</h2>
+            <p><strong>System:</strong> {{ diagram.system }}</p>
+            <p><strong>Vehicle:</strong> {{ diagram.vehicle }}</p>
+            <p><strong>Diagram:</strong> {{ diagram.content }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>

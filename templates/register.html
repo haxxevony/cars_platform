@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 40px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; margin-bottom: 20px; }
+        form { display: flex; flex-direction: column; }
+        label { margin-top: 10px; font-weight: bold; }
+        input, select { padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
+        button { margin-top: 20px; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .errorlist { color: red; margin-top: 5px; list-style: none; padding-left: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create Your Account</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <label for="id_username">Username</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+
+            <label for="id_email">Email</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+
+            <label for="id_password1">Password</label>
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+
+            <label for="id_password2">Confirm Password</label>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+
+            <label for="id_role">Role</label>
+            {{ form.role }}
+            {{ form.role.errors }}
+
+            <label for="id_business_name">Business Name (optional)</label>
+            {{ form.business_name }}
+            {{ form.business_name.errors }}
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</body>
+</html>

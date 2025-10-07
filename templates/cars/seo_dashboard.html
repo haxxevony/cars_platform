@@ -1,0 +1,42 @@
+<!-- templates/cars/seo_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SEO Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 1000px; margin: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border: 1px solid #ccc; text-align: left; }
+        th { background-color: #f4f4f4; }
+        h1 { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Dynamic SEO Dashboard</h1>
+    {% if metrics %}
+        <table>
+            <tr>
+                <th>Page</th>
+                <th>Primary Keyword</th>
+                <th>Search Impressions</th>
+                <th>Click-Through Rate</th>
+                <th>Indexed</th>
+                <th>Last Crawl</th>
+            </tr>
+            {% for m in metrics %}
+            <tr>
+                <td>{{ m.page }}</td>
+                <td>{{ m.keyword }}</td>
+                <td>{{ m.impressions }}</td>
+                <td>{{ m.ctr }}%</td>
+                <td>{{ m.indexed }}</td>
+                <td>{{ m.last_crawl }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No SEO metrics available.</p>
+    {% endif %}
+</body>
+</html>

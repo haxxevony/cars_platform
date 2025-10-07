@@ -1,0 +1,43 @@
+<!-- templates/cars/compliance_checker.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compliance & Regulation Checker</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+        form { display: flex; flex-direction: column; gap: 10px; }
+        input, select, button { padding: 10px; font-size: 1rem; }
+        label { font-weight: bold; }
+        .result { margin-top: 20px; padding: 15px; border: 1px solid #ccc; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>Compliance & Regulation Checker</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="vin">Vehicle VIN</label>
+        <input type="text" name="vin" id="vin" required>
+
+        <label for="region">Regulatory Region</label>
+        <select name="region" id="region" required>
+            <option value="UK">UK (MOT, DVLA)</option>
+            <option value="EU">EU (Euro 6, CE)</option>
+            <option value="US">US (DOT, EPA)</option>
+            <option value="Asia">Asia (JDM, AIS)</option>
+        </select>
+
+        <button type="submit">Check Compliance</button>
+    </form>
+
+    {% if result %}
+        <div class="result">
+            <h2>Compliance Result</h2>
+            <p><strong>VIN:</strong> {{ result.vin }}</p>
+            <p><strong>Region:</strong> {{ result.region }}</p>
+            <p><strong>Status:</strong> {{ result.status }}</p>
+            <p><strong>Notes:</strong> {{ result.notes }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>

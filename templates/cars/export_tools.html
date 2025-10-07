@@ -1,0 +1,45 @@
+<!-- templates/cars/export_tools.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Export Tools</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 700px; margin: auto; }
+        form { display: flex; flex-direction: column; gap: 10px; }
+        select, button { padding: 10px; font-size: 1rem; }
+        label { font-weight: bold; }
+        .status { margin-top: 20px; padding: 15px; border: 1px solid #ccc; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>Export Platform Data</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="dataset">Select Dataset</label>
+        <select name="dataset" id="dataset" required>
+            <option value="listings">Car Listings</option>
+            <option value="diagnostics">OBD-II Diagnostics</option>
+            <option value="feedback">Seller Feedback</option>
+            <option value="telemetry">EV Telemetry</option>
+        </select>
+
+        <label for="format">Export Format</label>
+        <select name="format" id="format" required>
+            <option value="csv">CSV</option>
+            <option value="xlsx">Excel (XLSX)</option>
+        </select>
+
+        <button type="submit">Generate Export</button>
+    </form>
+
+    {% if status %}
+        <div class="status">
+            <h2>Export Status</h2>
+            <p><strong>Dataset:</strong> {{ status.dataset }}</p>
+            <p><strong>Format:</strong> {{ status.format }}</p>
+            <p><strong>Outcome:</strong> {{ status.outcome }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!-- templates/cars/admin_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Analytics Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 1000px; margin: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border: 1px solid #ccc; text-align: left; }
+        th { background-color: #f4f4f4; }
+        h1 { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Admin Analytics Dashboard</h1>
+    {% if stats %}
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Value</th>
+            </tr>
+            {% for key, value in stats.items %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No analytics available.</p>
+    {% endif %}
+</body>
+</html>

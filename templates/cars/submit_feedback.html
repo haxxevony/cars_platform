@@ -1,0 +1,30 @@
+<!-- templates/cars/submit_feedback.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Feedback</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+        form { display: flex; flex-direction: column; gap: 10px; }
+        input, textarea, button { padding: 10px; font-size: 1rem; }
+        label { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>We Value Your Feedback</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="name">Your Name (optional)</label>
+        <input type="text" name="name" id="name">
+
+        <label for="email">Email (optional)</label>
+        <input type="email" name="email" id="email">
+
+        <label for="message">Feedback</label>
+        <textarea name="message" id="message" rows="6" required></textarea>
+
+        <button type="submit">Send Feedback</button>
+    </form>
+</body>
+</html>

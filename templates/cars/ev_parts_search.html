@@ -1,0 +1,52 @@
+<!-- templates/cars/ev_parts_search.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EV Parts Sourcing</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 900px; margin: auto; }
+        form { display: flex; flex-direction: column; gap: 10px; }
+        input, select, button { padding: 10px; font-size: 1rem; }
+        label { font-weight: bold; }
+        .part { border: 1px solid #ccc; padding: 10px; margin-top: 15px; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>Search EV Parts</h1>
+    <form method="get">
+        <label for="query">Part Name or Keyword</label>
+        <input type="text" name="query" id="query" placeholder="e.g. inverter, battery module" required>
+
+        <label for="vehicle">Compatible Vehicle</label>
+        <input type="text" name="vehicle" id="vehicle" placeholder="e.g. Nissan Leaf, Tesla Model S">
+
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            <option value="">All Categories</option>
+            <option value="battery">Battery</option>
+            <option value="motor">Motor</option>
+            <option value="inverter">Inverter</option>
+            <option value="charger">Onboard Charger</option>
+            <option value="cooling">Cooling System</option>
+        </select>
+
+        <button type="submit">Search</button>
+    </form>
+
+    {% if results %}
+        <h2>Available Parts</h2>
+        {% for part in results %}
+            <div class="part">
+                <strong>{{ part.name }}</strong><br>
+                Category: {{ part.category }}<br>
+                Compatible With: {{ part.compatibility }}<br>
+                Supplier: {{ part.supplier }}<br>
+                Price: {{ part.price }}
+            </div>
+        {% empty %}
+            <p>No parts found.</p>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

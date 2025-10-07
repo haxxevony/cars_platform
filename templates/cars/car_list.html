@@ -1,0 +1,21 @@
+<!-- templates/cars/car_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Listings</title>
+</head>
+<body>
+    <h1>Available Cars</h1>
+    {% for car in cars %}
+        <div>
+            <h2>{{ car.make }} {{ car.model }} ({{ car.year }})</h2>
+            <p>VRN: {{ car.vrn }}</p>
+            <p>Price: £{{ car.price }}</p>
+            <p>Seller: {{ car.seller }}</p>
+        </div>
+    {% empty %}
+        <p>No cars listed yet.</p>
+    {% endfor %}
+</body>
+</html>

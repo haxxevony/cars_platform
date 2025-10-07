@@ -1,0 +1,42 @@
+<!-- templates/cars/evtelemetry_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EV Telemetry Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 900px; margin: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border: 1px solid #ccc; text-align: left; }
+        th { background-color: #f4f4f4; }
+        h1 { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>EV Telemetry Dashboard</h1>
+    {% if telemetry %}
+        <table>
+            <tr>
+                <th>Vehicle</th>
+                <th>Range Estimate</th>
+                <th>Battery Health</th>
+                <th>Charging Status</th>
+                <th>Unit</th>
+                <th>Last Updated</th>
+            </tr>
+            {% for entry in telemetry %}
+            <tr>
+                <td>{{ entry.vehicle }}</td>
+                <td>{{ entry.range_estimate }}</td>
+                <td>{{ entry.battery_health }}</td>
+                <td>{{ entry.charging_status }}</td>
+                <td>{{ entry.unit }}</td>
+                <td>{{ entry.timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No telemetry data available.</p>
+    {% endif %}
+</body>
+</html>

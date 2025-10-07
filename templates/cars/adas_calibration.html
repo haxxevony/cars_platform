@@ -1,0 +1,48 @@
+<!-- templates/cars/adas_calibration.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ADAS Calibration</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+        form { display: flex; flex-direction: column; gap: 10px; }
+        input, select, button { padding: 10px; font-size: 1rem; }
+        label { font-weight: bold; }
+        .status { margin-top: 20px; padding: 15px; border: 1px solid #ccc; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>ADAS Calibration Interface</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="vehicle">Vehicle VIN</label>
+        <input type="text" name="vehicle" id="vehicle" required>
+
+        <label for="system">System to Calibrate</label>
+        <select name="system" id="system" required>
+            <option value="lane_assist">Lane Assist</option>
+            <option value="adaptive_cruise">Adaptive Cruise Control</option>
+            <option value="collision_warning">Collision Warning</option>
+            <option value="parking_sensors">Parking Sensors</option>
+            <option value="camera_alignment">Camera Alignment</option>
+        </select>
+
+        <label for="technician">Technician Name</label>
+        <input type="text" name="technician" id="technician">
+
+        <button type="submit">Initiate Calibration</button>
+    </form>
+
+    {% if status %}
+        <div class="status">
+            <h2>Calibration Status</h2>
+            <p><strong>Vehicle:</strong> {{ status.vehicle }}</p>
+            <p><strong>System:</strong> {{ status.system }}</p>
+            <p><strong>Technician:</strong> {{ status.technician }}</p>
+            <p><strong>Timestamp:</strong> {{ status.timestamp }}</p>
+            <p><strong>Outcome:</strong> {{ status.outcome }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>

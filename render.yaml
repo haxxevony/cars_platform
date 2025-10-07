@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: django-web
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn cars_platform.wsgi:application
+    autoDeploy: true
+    envVars:
+      - key: SECRET_KEY
+        value: your-secret-key
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_HOSTS
+        value: yourdomain.com,www.yourdomain.com

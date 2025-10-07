@@ -1,0 +1,40 @@
+<!-- templates/cars/diagnostics_search.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnostics Search</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 700px; margin: auto; }
+        form { display: flex; flex-direction: column; gap: 10px; }
+        input, select, button { padding: 10px; font-size: 1rem; }
+        label { font-weight: bold; }
+        .result { margin-top: 20px; padding: 15px; border: 1px solid #ccc; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>OBD-II Diagnostics Search</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="code">Enter Fault Code (e.g. P0300)</label>
+        <input type="text" name="code" id="code" required>
+
+        <label for="make">Vehicle Make (optional)</label>
+        <input type="text" name="make" id="make">
+
+        <label for="year">Model Year (optional)</label>
+        <input type="number" name="year" id="year" min="1990" max="2025">
+
+        <button type="submit">Search Diagnostics</button>
+    </form>
+
+    {% if result %}
+        <div class="result">
+            <h2>Code: {{ result.code }}</h2>
+            <p><strong>Description:</strong> {{ result.description }}</p>
+            <p><strong>Possible Causes:</strong> {{ result.causes }}</p>
+            <p><strong>Recommended Fix:</strong> {{ result.fix }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>

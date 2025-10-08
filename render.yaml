@@ -1,3 +1,7 @@
+startCommand: |     # temp fix for migrations
+  python run_once.py || true
+  gunicorn cars_platform.wsgi:application
+
 services:
   - type: web
     name: django-web

@@ -4,10 +4,12 @@ from datetime import timedelta
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+LOG_DIR = BASE_DIR / 'logs'
+LOG_DIR.mkdir(exist_ok=True)
 
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-secure-key-for-local-dev')
 DEBUG = config('DEBUG', default=True, cast=bool)
-ALLOWED_HOSTS = ['cars-platforms.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(",")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -111,17 +113,8 @@ SIMPLE_JWT = {
     'USER_ID_CLAIM': 'user_id',
 }
 
-CORS_ALLOWED_ORIGINS = [
-    'https://cars-platforms.onrender.com',
-    'http://localhost:5173',
-    'http://127.0.0.1:8000',
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://cars-platforms.onrender.com',
-    'http://localhost:5173',
-    'http://127.0.0.1:8000',
-]
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
 
 LOGIN_REDIRECT_URL = '/accounts/home/'
 LOGOUT_REDIRECT_URL = '/'

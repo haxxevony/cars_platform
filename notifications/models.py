@@ -1,26 +1,41 @@
 from django.db import models
-from django.conf import settings
+from django.apps import apps
+from django.core.validators import MaxLengthValidator
 
 class Notification(models.Model):
     recipient = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
+        'accounts.CustomUser',
+        on_delete=models.CASCADE,
         related_name='notifications'
     )
-    message = models.TextField()
+    vehicle = models.ForeignKey(
+        'vehicles.Vehicle',
+        on_delete=models.CASCADE,
+        related_name='notifications',
+        null=True,
+        blank=True
+    )
+    message = models.TextField(validators=[MaxLengthValidator(500)])
+    created_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    notification_type = models.CharField(
+        max_length=20,
+        choices=[
+            ('info', 'Info'),
+            ('warning', 'Warning'),
+            ('error', 'Error'),
+        ],
+        default='info'
+    )
 
     class Meta:
-        ordering = ['-timestamp']
-        verbose_name_plural = 'Notifications'
+        ordering = ['-created_at']
         indexes = [
-            models.Index(fields=['recipient']),
-            models.Index(fields=['is_read']),
+            models.Index(fields=['recipient', 'is_read']),
+            models.Index(fields=['created_at']),
         ]
+        verbose_name = 'Notification'
+        verbose_name_plural = 'Notifications'
 
     def __str__(self):
-        user_display = self.recipient.username if self.recipient else "Anonymous"
-        return f"To {user_display}: {self.message[:50]}"
+        return f"Notification for {self.recipient.email}: {self.message[:50]}"

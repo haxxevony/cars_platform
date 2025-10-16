@@ -260,7 +260,7 @@ class LegacyDiagnosticCode(models.Model):
 
 class LegacyGuestBlog(models.Model):
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, default='untitled')  # ✅ Add default
     author = models.CharField(max_length=100)
     content = models.TextField()
     published_date = models.DateTimeField(auto_now_add=True)
@@ -268,6 +268,16 @@ class LegacyGuestBlog(models.Model):
     class Meta:
         ordering = ['-published_date']
         indexes = [models.Index(fields=['slug'])]
+        unique_together = ('title', 'author')
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return self.title

@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 from django.utils.text import slugify
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class Vehicle(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='vehicles')
@@ -302,6 +304,20 @@ class LegacyCarListing(models.Model):
 class LegacySellerFeedback(models.Model):
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='legacy_feedback_received')
     reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='legacy_feedback_given')
+    rating = models.PositiveSmallIntegerField()
+    comment = models.TextField(blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-timestamp']
+        indexes = [models.Index(fields=['seller', 'reviewer'])]
+
+    def __str__(self):
+        return f"Legacy Feedback for {self.seller.email} by {self.reviewer.email} ({self.rating})"
+    
+class LegacySellerFeedback(models.Model):
+    seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='legacy_feedback_received')
+    reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='legacy_feedback_given', default=1)  # ✅ Add default
     rating = models.PositiveSmallIntegerField()
     comment = models.TextField(blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)

@@ -246,7 +246,7 @@ class Acronym(models.Model):
         return f"{self.short_form}: {self.full_form}"
 
 class LegacyDiagnosticCode(models.Model):
-    code = models.CharField(max_length=5, unique=True)
+    code = models.CharField(max_length=10, unique=True, default='UNKNOWN')  # ✅ Add default
     description = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -256,6 +256,7 @@ class LegacyDiagnosticCode(models.Model):
 
     def __str__(self):
         return f"{self.code}: {self.description}"
+
 
 class LegacyGuestBlog(models.Model):
     title = models.CharField(max_length=200)

@@ -3,7 +3,8 @@ from django.apps import apps
 from django.core.validators import MaxLengthValidator
 from django.utils import timezone
 
-created_at = models.DateTimeField(auto_now_add=True, default=timezone.now)
+# renaming `timestamp` to `created_at`
+created_at = models.DateTimeField(auto_now_add=True, default=timezone.now, db_column='timestamp')
 
 class Notification(models.Model):
     recipient = models.ForeignKey(

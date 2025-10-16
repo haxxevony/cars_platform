@@ -155,7 +155,7 @@ class FuseBox(models.Model):
     model = models.CharField(max_length=50)
     year = models.PositiveSmallIntegerField()
     location = models.CharField(max_length=100)
-    diagram_url = models.URLField(blank=True)
+    diagram_url = models.URLField(blank=True, default='1')  # ✅ Add default
     notes = models.TextField(blank=True)
 
     class Meta:
@@ -163,6 +163,7 @@ class FuseBox(models.Model):
 
     def __str__(self):
         return f"FuseBox for {self.make} {self.model} ({self.year})"
+
 
 class WiringDiagram(models.Model):
     SYSTEM_TYPES = [
@@ -248,7 +249,7 @@ class Acronym(models.Model):
         return f"{self.short_form}: {self.full_form}"
 
 class LegacyDiagnosticCode(models.Model):
-    code = models.CharField(max_length=10, unique=True, default='UNKNOWN')  # ✅ Add default
+    code = models.CharField(max_length=10, unique=True, default='1')  # ✅ Add default
     description = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -262,7 +263,7 @@ class LegacyDiagnosticCode(models.Model):
 
 class LegacyGuestBlog(models.Model):
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, default='untitled')  # ✅ Add default
+    slug = models.SlugField(unique=True, default='1')  # ✅ Add default
     author = models.CharField(max_length=100)
     content = models.TextField()
     published_date = models.DateTimeField(auto_now_add=True)
